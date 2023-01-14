@@ -1,6 +1,6 @@
 {
   "name": "@soybeanjs/vite-plugin-vue-page-route",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A vite plugin for vue, auto generate route info by page",
   "author": {
     "name": "Soybean",
