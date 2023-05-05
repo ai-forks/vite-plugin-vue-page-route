@@ -31,16 +31,16 @@ export const views: Record<
     const key = transformKey(name);
 
     if (isLazy) {
-      code += `\n  ${key}: () => import('${path}')`;
+      code += `\n  "${key}": () => import('${path}')`;
     } else {
       const importKey = transformImportKey(name);
 
       preCode += `import ${importKey} from '${path}';\n`;
 
       if (key === path && !isPureNumberKey(name)) {
-        code += `\n  ${key}`;
+        code += `\n  "${key}"`;
       } else {
-        code += `\n  ${key}: ${importKey}`;
+        code += `\n  "${key}": ${importKey}`;
       }
     }
 

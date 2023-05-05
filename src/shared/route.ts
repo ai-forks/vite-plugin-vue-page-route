@@ -18,7 +18,6 @@ function transformRouteName(glob: string, routeName: string, pageDir: string) {
   let name = routeName;
 
   const filePath = getRelativePathOfGlob(glob, pageDir);
-
   if (CAMEL_OR_PASCAL.test(routeName)) {
     let warning = `${bgYellow('RECOMMEND')} `;
     warning += yellow(`the filePath: ${filePath}`);
@@ -40,7 +39,18 @@ function transformRouteName(glob: string, routeName: string, pageDir: string) {
     // eslint-disable-next-line no-console
     console.error(error);
   }
-
+  const acceptPath = getRouteFilePathByGlob(glob);
+  if (!acceptPath.endsWith('index.vue')) {
+    name = acceptPath
+      .replace(/^\.\//, '')
+      .replace(/\.vue$/, '')
+      .replace(/\//g, '_');
+    name = name.replace(/\[[a-z0-9_-]+\]/i, v => {
+      const n = v.replace(/^\[+/, ':').replace(/\]+$/, '');
+      return n;
+    });
+  }
+  // console.info('===>', routeName, name, acceptPath);
   return name;
 }
 
@@ -84,11 +94,11 @@ export function getRouteConfigByGlobs(globs: string[], options: ContextOption) {
   };
 
   globs.sort().forEach(glob => {
+    const filePath = getRouteFilePathByGlob(glob);
     const routeName = getRouteNameByGlob(glob, options.pageDir);
     const names = getAllRouteNames(routeName);
     config.names.push(...names);
 
-    const filePath = getRouteFilePathByGlob(glob);
     config.files.push({ name: routeName, path: filePath });
   });
 
