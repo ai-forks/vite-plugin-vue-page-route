@@ -1,6 +1,6 @@
 {
   "name": "@ai-lion/vite-plugin-vue-page-route",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A vite plugin for vue, auto generate route info by page",
   "license": "MIT",
   "homepage": "https://github.com/ai-forks/vite-plugin-vue-page-route",
